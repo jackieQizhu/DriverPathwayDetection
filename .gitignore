@@ -1,5 +1,5 @@
 # Ignores Data Files
-tcga data/
+tcga_data/
 
 # Ignores idea fiels
 .idea/

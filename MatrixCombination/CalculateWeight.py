@@ -9,17 +9,6 @@ import pandas as pd
 matrix_A = pd.DataFrame(pd.read_csv("./tcga_data/AA.csv",
                                     header=0, index_col=0))
 K = int(input())
-
-'''
-# a submatrix of matrix_A which is determined by K
-m_gene_set = random.sample(matrix_A.columns, K)
-m_patient_set = set(matrix_A.index)
-
-
-matrix_M = pd.DataFrame((["{0}#{1}".format(row, col) for col in m_gene_set] for row in m_patient_set),
-                        index=m_patient_set, columns=m_gene_set)
-'''
-
 # A more convenient way
 sqrt = np.sqrt(K)
 matrix_M = matrix_A.iloc[:, 0:K]

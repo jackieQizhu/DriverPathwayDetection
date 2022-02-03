@@ -40,8 +40,6 @@ def union_matrix(x):
         return 0
 
 
-
-
 print("prev: \n", matrix_A)
 union_df = matrix_A.applymap(union_matrix)
 print("after: \n", union_df)

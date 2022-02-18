@@ -89,18 +89,14 @@ def cooperation_crossover_one(cp_next, pop_two_new, pop_one_new):
     return pop_one_new, pop_two_new
 
 # define a roulette selector
-def pop_one_selection_elitism(POP_ONE):
+def selection_elitism(POP_ONE, POP_TWO, cp_init):
     pop_parents_one = sorted(POP_ONE, key=lambda x: get_fitness(x), revers=True)
-
-    return pop_parents_one[0: int(POP_SIZE * 0.5)]
-
-def pop_two_selection_elitism(POP_TWO):
     pop_parents_two = sorted(POP_TWO, key=lambda x: get_fitness(x), revers=True)
-    return pop_parents_two[0: int(POP_SIZE * 0.5)]
-
-def cooperation_selection(cp_init):
     cp_parents = sorted(cp_init, key=lambda x: get_fitness(x), revers=True)
-    return cp_parents[0: int(POP_SIZE * 0.5)]
+    pop_one_next = pop_parents_one[0: int(POP_SIZE * 0.5)]
+    pop_two_next = pop_parents_two[0: int(POP_SIZE * 0.5)]
+    cp_next = cp_parents[0: int(POP_SIZE * 0.5)]
+    return pop_one_next, pop_two_next, cp_next
 
 def pop_one_mutation(pop_new_one):
     fit = []
@@ -151,12 +147,10 @@ def CGA_MWS():
     for g in MAXG_G:
         while gen < g and t < MAXT:
             # step 4 :selection and crossover in pop
-            pop_one_next = pop_one_selection_elitism(pop_one_init)
-            pop_two_next = pop_two_selection_elitism(pop_two_init)
+            pop_one_selection_elitism(pop_one_init, pop_two_init, cp_init)
             pop_one_new = pop_one_crossover(pop_one_next)
             pop_two_new = pop_two_crossover(pop_two_next)
             # step 5 :selection and crossover in cooperation
-            cp_next = cooperation_selection(cp_init)
             cooperation_crossover_one(cp_next)
             # step 6 :mutation
             pop_one_mutation(pop_one_new)
